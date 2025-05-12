@@ -1,0 +1,146 @@
+/* Estilos para la sección de testimonios */
+.testimonios {
+    background-color: var(--light-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonios::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../assets/images/pattern.png');
+    opacity: 0.05;
+}
+
+.testimonios-slider {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.testimonios-container {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.testimonio {
+    min-width: 100%;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+.testimonio-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 5px solid var(--primary-color);
+}
+
+.testimonio-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonio-texto {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.testimonio-texto::before {
+    content: '\201C';
+    font-size: 60px;
+    color: var(--primary-color);
+    opacity: 0.2;
+    position: absolute;
+    top: -20px;
+    left: -10px;
+}
+
+.testimonio-autor {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.testimonio-cargo {
+    color: #777;
+    font-size: 14px;
+}
+
+.testimonio-rating {
+    margin-top: 15px;
+    color: #ffc107;
+    font-size: 18px;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.slider-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.slider-btn:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.slider-dot.active {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
+}
+
+/* Estilos responsive para la sección de testimonios */
+@media (max-width: 768px) {
+    .testimonio {
+        padding: 20px;
+    }
+    
+    .testimonio-img {
+        width: 80px;
+        height: 80px;
+    }
+}

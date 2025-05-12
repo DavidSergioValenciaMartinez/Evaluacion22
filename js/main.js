@@ -38,7 +38,24 @@ window.addEventListener('scroll', function() {
         header.style.backgroundColor = '#fff';
         header.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
     }
+    
+    // Animación de elementos al hacer scroll
+    animateOnScroll();
 });
+
+// Función para animar elementos cuando aparecen en el viewport
+function animateOnScroll() {
+    const elements = document.querySelectorAll('.fade-in');
+    
+    elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+        
+        if (elementPosition < screenPosition) {
+            element.classList.add('visible');
+        }
+    });
+}
 
 // Función para manejar el menú móvil
 document.addEventListener('DOMContentLoaded', function() {
@@ -46,6 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
     loadComponent('header-container', 'components/header.html');
     loadComponent('hero-container', 'components/hero.html');
     loadComponent('products-container', 'components/products.html');
+    loadComponent('services-container', 'components/services.html');
+    loadComponent('testimonials-container', 'components/testimonials.html');
     loadComponent('footer-container', 'components/footer.html');
     
     // Configurar menú móvil después de cargar el header
@@ -69,6 +88,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     menuToggle.classList.remove('active');
                 });
             });
+        }
+        
+        // Añadir clase fade-in a elementos para animación
+        if (['products-container', 'services-container', 'testimonials-container'].includes(e.detail.id)) {
+            const container = document.getElementById(e.detail.id);
+            const cards = container.querySelectorAll('.vehiculo-card, .servicio-card, .testimonio');
+            
+            cards.forEach((card, index) => {
+                card.classList.add('fade-in');
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+            
+            // Iniciar la animación después de cargar
+            setTimeout(animateOnScroll, 100);
         }
     });
     

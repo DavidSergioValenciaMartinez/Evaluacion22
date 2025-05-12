@@ -1,0 +1,69 @@
+/* Estilos para la sección de servicios */
+.servicios {
+    background-color: #fff;
+}
+
+.servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.servicio-card {
+    background-color: var(--light-color);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.servicio-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.servicio-icon {
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
+    transition: var(--transition);
+}
+
+.servicio-card:hover .servicio-icon {
+    background-color: var(--secondary-color);
+    transform: rotateY(360deg);
+    transition: transform 0.8s, background-color 0.3s;
+}
+
+.servicio-card h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.servicio-card p {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+/* Estilos responsive para la sección de servicios */
+@media (max-width: 768px) {
+    .servicios-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .servicios-grid {
+        grid-template-columns: 1fr;
+    }
+}
