@@ -24,7 +24,26 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Código para inicializar la página
+// Función para manejar el menú móvil
 document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('mobile-menu');
+    const nav = document.querySelector('nav');
+    
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    }
+    
+    // Cerrar el menú cuando se hace clic en un enlace
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            nav.classList.remove('active');
+            menuToggle.classList.remove('active');
+        });
+    });
+    
     console.log('La página se ha cargado completamente');
 });

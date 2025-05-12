@@ -1,4 +1,19 @@
-/* Estilos generales */
+/* Importar fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+
+/* Variables globales */
+:root {
+    --primary-color: #e74c3c;
+    --secondary-color: #3498db;
+    --accent-color: #2ecc71;
+    --text-color: #333;
+    --light-color: #f9f9f9;
+    --dark-color: #222;
+    --font-primary: 'Poppins', sans-serif;
+    --transition: all 0.3s ease;
+}
+
+/* Estilos base */
 * {
     margin: 0;
     padding: 0;
@@ -6,9 +21,9 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: var(--font-primary);
     line-height: 1.6;
-    color: #333;
+    color: var(--text-color);
 }
 
 .container {
@@ -18,84 +33,32 @@ body {
     padding: 0 15px;
 }
 
-/* Estilos del header */
-header {
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 100;
-}
-
-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo h1 {
-    color: #e74c3c;
-    font-size: 28px;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-}
-
-nav ul li {
-    margin-left: 20px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: #e74c3c;
-}
-
-/* Estilos de la sección hero */
-.hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/images/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #fff;
-    padding-top: 80px;
-}
-
-.hero h2 {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 20px;
-    margin-bottom: 30px;
-}
-
+/* Botones */
 .btn {
     display: inline-block;
-    background-color: #e74c3c;
+    background-color: var(--primary-color);
     color: #fff;
     padding: 12px 30px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
 }
 
 .btn:hover {
     background-color: #c0392b;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: #2980b9;
 }
 
 /* Estilos de secciones */
@@ -107,13 +70,29 @@ section h2 {
     text-align: center;
     margin-bottom: 50px;
     font-size: 36px;
-    color: #333;
+    color: var(--text-color);
+    position: relative;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* Estilos del footer */
 footer {
-    background-color: #333;
+    background-color: var(--dark-color);
     color: #fff;
     text-align: center;
     padding: 20px 0;
 }
+
+/* Importar módulos CSS */
+@import 'modules/header.css';
+@import 'modules/hero.css';
