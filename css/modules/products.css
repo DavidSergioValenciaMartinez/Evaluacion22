@@ -1,0 +1,98 @@
+/* Estilos para la sección de vehículos */
+.vehiculos {
+    background-color: var(--light-color);
+}
+
+.vehiculos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.vehiculo-card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.vehiculo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.vehiculo-img {
+    height: 200px;
+    overflow: hidden;
+}
+
+.vehiculo-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.vehiculo-card:hover .vehiculo-img img {
+    transform: scale(1.1);
+}
+
+.vehiculo-info {
+    padding: 20px;
+}
+
+.vehiculo-info h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.vehiculo-precio {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.vehiculo-detalles {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #777;
+}
+
+.vehiculo-detalles span {
+    display: flex;
+    align-items: center;
+}
+
+.vehiculo-detalles i {
+    margin-right: 5px;
+    color: var(--secondary-color);
+}
+
+.vehiculo-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-sm {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+/* Estilos responsive para la sección de vehículos */
+@media (max-width: 768px) {
+    .vehiculos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .vehiculos-grid {
+        grid-template-columns: 1fr;
+    }
+}

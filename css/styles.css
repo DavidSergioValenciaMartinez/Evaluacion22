@@ -85,14 +85,8 @@ section h2::after {
     transform: translateX(-50%);
 }
 
-/* Estilos del footer */
-footer {
-    background-color: var(--dark-color);
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-}
-
 /* Importar módulos CSS */
 @import 'modules/header.css';
 @import 'modules/hero.css';
+@import 'modules/products.css';
+@import 'modules/footer.css';
