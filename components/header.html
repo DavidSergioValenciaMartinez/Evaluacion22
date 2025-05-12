@@ -1,20 +1,42 @@
 <div class="container">
-    <div class="logo">
-        <img src="assets/images/logo.png" alt="AutoLux Logo">
-        <h1>AutoLux</h1>
+    <div class="header-content">
+        <div class="logo">
+            <a href="#inicio">
+                <img src="assets/images/logo.png" alt="AutoLux Logo">
+                <span>AutoLux</span>
+            </a>
+        </div>
+        
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#vehiculos">Vehículos</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        
+        <div class="header-buttons">
+            <a href="#" id="login-btn" class="btn btn-sm btn-secondary">
+                <i class="fas fa-user"></i> Iniciar Sesión
+            </a>
+        </div>
+        
+        <div id="mobile-menu" class="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-    <div class="menu-toggle" id="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
+</div>
+<div class="user-profile" id="user-profile">
+        <div class="user-avatar">
+            <img src="assets/images/avatar.jpg" alt="Usuario">
+        </div>
+        <div class="user-name">Usuario</div>
+        <button class="logout-btn" id="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
     </div>
-    <nav>
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#vehiculos">Vehículos</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#testimonios">Testimonios</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
 </div>
