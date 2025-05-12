@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoLux - Concesionaria Premium</title>
+    <meta name="description" content="AutoLux - Panel de Administración para Concesionaria Premium">
+    <title>AutoLux Dashboard</title>
     <!-- Normalize CSS para resetear estilos por defecto -->
     <link rel="stylesheet" href="css/normalize.css">
     <!-- Estilos principales -->
@@ -12,90 +13,273 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Animaciones AOS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Chart.js para gráficos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.ico">
 </head>
 <body>
-    <!-- Overlay para el login -->
-    <div id="login-overlay" class="overlay">
-        <div class="login-container">
-            <div class="login-header">
-                <h2>Iniciar Sesión</h2>
-                <button id="close-login" class="close-btn"><i class="fas fa-times"></i></button>
-            </div>
-            <form id="login-form" class="login-form">
-                <div class="form-group">
-                    <label for="login-email">Correo Electrónico</label>
-                    <input type="email" id="login-email" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Contraseña</label>
-                    <input type="password" id="login-password" class="form-control" required>
-                </div>
-                <div class="form-group remember-me">
-                    <input type="checkbox" id="remember-me">
-                    <label for="remember-me">Recordarme</label>
-                </div>
-                <div class="form-submit">
-                    <button type="submit" class="btn">Iniciar Sesión</button>
-                </div>
-                <div class="login-footer">
-                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                    <p>¿No tienes cuenta? <a href="#" class="register-link">Regístrate</a></p>
-                </div>
-            </form>
-        </div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
     </div>
 
-    <!-- Header -->
-    <header id="header-container">
-        <!-- El contenido del header se cargará desde components/header.html -->
-    </header>
-
-    <!-- Sección Hero -->
-    <section id="inicio" class="hero">
-        <div id="hero-container">
-            <!-- El contenido del hero se cargará desde components/hero.html -->
-        </div>
-    </section>
-
-    <!-- Sección de Vehículos -->
-    <section id="vehiculos" class="vehiculos">
-        <div id="products-container">
-            <!-- El contenido de vehículos se cargará desde components/products.html -->
-        </div>
-    </section>
-
-    <!-- Sección de Servicios -->
-    <section id="servicios" class="servicios">
-        <div id="services-container">
-            <!-- El contenido de servicios se cargará desde components/services.html -->
-        </div>
-    </section>
-
-    <!-- Sección de Testimonios -->
-    <section id="testimonios" class="testimonios">
-        <div id="testimonials-container">
-            <!-- El contenido de testimonios se cargará desde components/testimonials.html -->
-        </div>
-    </section>
-
-    <!-- Sección de Contacto -->
-    <section id="contacto" class="contacto">
-        <div id="contact-container">
-            <!-- El contenido de contacto se cargará desde components/contact.html -->
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="footer-container">
-        <!-- El contenido del footer se cargará desde components/footer.html -->
-    </footer>
+    <!-- Dashboard Container -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-car"></i>
+                    <span>AutoLux</span>
+                </a>
+            </div>
+            
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#vehiculos" class="nav-link">
+                        <i class="fas fa-car-side"></i>
+                        <span>Vehículos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#ventas" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Ventas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#clientes" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#servicios" class="nav-link">
+                        <i class="fas fa-tools"></i>
+                        <span>Servicios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reportes" class="nav-link">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#marketing" class="nav-link">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Marketing</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#configuracion" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer mt-3">
+                <a href="#" class="btn btn-outline btn-sm" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </a>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar...">
+                </div>
+                
+                <div class="user-actions">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    
+                    <div class="user-profile">
+                        <div class="avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto de perfil">
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">Carlos Mendoza</span>
+                            <span class="user-role">Administrador</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <h1>Panel de Control</h1>
+                <p>Bienvenido al panel de administración de AutoLux. Aquí encontrarás todas las herramientas para gestionar tu concesionaria.</p>
+                
+                <!-- Stats Cards -->
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-title">Ventas Totales</div>
+                        <div class="card-value">$1.89M</div>
+                        <div class="stat-row">
+                            <span class="stat-value">+12.5%</span>
+                            <span class="stat-percentage up">
+                                <i class="fas fa-arrow-up"></i> vs mes anterior
+                            </span>
+                        </div>
+                        <i class="fas fa-dollar-sign card-icon"></i>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">Vehículos Vendidos</div>
+                        <div class="card-value">78</div>
+                        <div class="stat-row">
+                            <span class="stat-value">+8.3%</span>
+                            <span class="stat-percentage up">
+                                <i class="fas fa-arrow-up"></i> vs mes anterior
+                            </span>
+                        </div>
+                        <i class="fas fa-car card-icon"></i>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">Clientes Nuevos</div>
+                        <div class="card-value">45</div>
+                        <div class="stat-row">
+                            <span class="stat-value">-3.2%</span>
+                            <span class="stat-percentage down">
+                                <i class="fas fa-arrow-down"></i> vs mes anterior
+                            </span>
+                        </div>
+                        <i class="fas fa-users card-icon"></i>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">Servicios Técnicos</div>
+                        <div class="card-value">134</div>
+                        <div class="stat-row">
+                            <span class="stat-value">+15.7%</span>
+                            <span class="stat-percentage up">
+                                <i class="fas fa-arrow-up"></i> vs mes anterior
+                            </span>
+                        </div>
+                        <i class="fas fa-tools card-icon"></i>
+                    </div>
+                </div>
+                
+                <!-- Charts -->
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Ventas Mensuales</div>
+                            <div class="chart-period">
+                                <span class="period-option">Semana</span>
+                                <span class="period-option active">Mes</span>
+                                <span class="period-option">Año</span>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-row">
+                    <div class="table-container">
+                        <h3>Últimas Ventas</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Vehículo</th>
+                                    <th>Precio</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#VN-2381</td>
+                                    <td>Laura Sánchez</td>
+                                    <td>Mercedes-Benz C300</td>
+                                    <td>$58,900</td>
+                                    <td>15/05/2023</td>
+                                    <td><span class="status status-success">Completado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#VN-2380</td>
+                                    <td>Alejandro Torres</td>
+                                    <td>BMW X5</td>
+                                    <td>$68,500</td>
+                                    <td>14/05/2023</td>
+                                    <td><span class="status status-success">Completado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#VN-2379</td>
+                                    <td>María Jiménez</td>
+                                    <td>Audi Q5</td>
+                                    <td>$52,300</td>
+                                    <td>12/05/2023</td>
+                                    <td><span class="status status-warning">Pendiente</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#VN-2378</td>
+                                    <td>Roberto Núñez</td>
+                                    <td>Lexus RX 350</td>
+                                    <td>$57,800</td>
+                                    <td>10/05/2023</td>
+                                    <td><span class="status status-danger">Cancelado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#VN-2377</td>
+                                    <td>Sofía Méndez</td>
+                                    <td>Porsche Macan</td>
+                                    <td>$72,100</td>
+                                    <td>08/05/2023</td>
+                                    <td><span class="status status-success">Completado</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="chart-row dashboard-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Modelos Más Vendidos</div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="modelsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Distribución de Ventas</div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="salesDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/components/slider.js"></script>
-    <script src="js/components/testimonials.js"></script>
-    <script src="js/components/contact.js"></script>
-    <script src="js/components/login.js"></script>
+    <script src="js/components/dashboard.js"></script>
 </body>
 </html>

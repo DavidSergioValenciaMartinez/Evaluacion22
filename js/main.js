@@ -1,19 +1,19 @@
 // Script principal para la landing page
 
-// Función para cargar componentes HTML
-function loadComponent(containerId, componentPath) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    fetch(componentPath)
-        .then(response => response.text())
-        .then(html => {
-            container.innerHTML = html;
-            // Disparar evento para notificar que el componente se ha cargado
-            const event = new CustomEvent('componentLoaded', { detail: { id: containerId } });
-            document.dispatchEvent(event);
-        })
-        .catch(error => console.error(`Error cargando ${componentPath}:`, error));
+// Función para cargar componentes HTML externos
+async function loadComponent(containerId, componentPath) {
+    try {
+        const response = await fetch(componentPath);
+        if (!response.ok) {
+            throw new Error(`Error cargando ${componentPath}: ${response.status}`);
+        }
+        const html = await response.text();
+        document.getElementById(containerId).innerHTML = html;
+        return true;
+    } catch (error) {
+        console.error(`Error cargando componente: ${error.message}`);
+        return false;
+    }
 }
 
 // Función para manejar el scroll suave
@@ -57,53 +57,133 @@ function animateOnScroll() {
     });
 }
 
-// Función para manejar el menú móvil
-document.addEventListener('DOMContentLoaded', function() {
-    // Cargar componentes
-    loadComponent('header-container', 'components/header.html');
-    loadComponent('hero-container', 'components/hero.html');
-    loadComponent('products-container', 'components/products.html');
-    loadComponent('services-container', 'components/services.html');
-    loadComponent('testimonials-container', 'components/testimonials.html');
-    loadComponent('footer-container', 'components/footer.html');
+// Inicializar animaciones AOS
+function initAOS() {
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+    });
+}
+
+// Añadir clases activas a los elementos de navegación
+function setActiveNavLink() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
     
-    // Configurar menú móvil después de cargar el header
-    document.addEventListener('componentLoaded', function(e) {
-        if (e.detail.id === 'header-container') {
-            const menuToggle = document.getElementById('mobile-menu');
-            const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const scrollY = window.pageYOffset;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
             
-            if (menuToggle) {
-                menuToggle.addEventListener('click', function() {
-                    nav.classList.toggle('active');
-                    menuToggle.classList.toggle('active');
-                });
+            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                current = sectionId;
             }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+}
+
+// Mostrar/ocultar header al hacer scroll
+function toggleHeaderOnScroll() {
+    const header = document.querySelector('header');
+    let lastScrollTop = 0;
+    
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 100) {
+            header.classList.add('header-scrolled');
             
-            // Cerrar el menú cuando se hace clic en un enlace
-            const navLinks = document.querySelectorAll('nav a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    nav.classList.remove('active');
-                    menuToggle.classList.remove('active');
-                });
-            });
+            if (scrollTop > lastScrollTop) {
+                // Scroll hacia abajo
+                header.classList.add('header-hidden');
+            } else {
+                // Scroll hacia arriba
+                header.classList.remove('header-hidden');
+            }
+        } else {
+            header.classList.remove('header-scrolled');
+            header.classList.remove('header-hidden');
         }
         
-        // Añadir clase fade-in a elementos para animación
-        if (['products-container', 'services-container', 'testimonials-container'].includes(e.detail.id)) {
-            const container = document.getElementById(e.detail.id);
-            const cards = container.querySelectorAll('.vehiculo-card, .servicio-card, .testimonio');
-            
-            cards.forEach((card, index) => {
-                card.classList.add('fade-in');
-                card.style.transitionDelay = `${index * 0.1}s`;
-            });
-            
-            // Iniciar la animación después de cargar
-            setTimeout(animateOnScroll, 100);
-        }
+        lastScrollTop = scrollTop;
     });
+}
+
+// Manejar el toggle del menú móvil
+function setupMobileMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
     
-    console.log('La página se ha cargado completamente');
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        });
+        
+        // Cerrar menú al hacer click en un enlace
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+    }
+}
+
+// Toggle de visibilidad para contraseñas
+function setupPasswordToggles() {
+    document.querySelectorAll('.toggle-password').forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const input = document.querySelector(this.getAttribute('toggle'));
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.querySelector('i').classList.remove('fa-eye');
+                    this.querySelector('i').classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    this.querySelector('i').classList.remove('fa-eye-slash');
+                    this.querySelector('i').classList.add('fa-eye');
+                }
+            }
+        });
+    });
+}
+
+// Inicializar la página
+document.addEventListener('DOMContentLoaded', async function() {
+    // Cargar todos los componentes
+    await Promise.all([
+        loadComponent('header-container', 'components/header.html'),
+        loadComponent('hero-container', 'components/hero.html'),
+        loadComponent('products-container', 'components/products.html'),
+        loadComponent('services-container', 'components/services.html'),
+        loadComponent('testimonials-container', 'components/testimonials.html'),
+        loadComponent('contact-container', 'components/contact.html'),
+        loadComponent('footer-container', 'components/footer.html')
+    ]);
+    
+    // Inicializar funcionalidades
+    initAOS();
+    setActiveNavLink();
+    toggleHeaderOnScroll();
+    setupMobileMenu();
+    setupPasswordToggles();
+    
+    console.log('Aplicación inicializada correctamente');
 });

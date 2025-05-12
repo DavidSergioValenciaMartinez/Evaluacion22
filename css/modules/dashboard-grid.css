@@ -1,0 +1,101 @@
+/* Estilos para la cuadrícula del dashboard */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.chart-row {
+    margin-bottom: 1.5rem;
+}
+
+/* Estilos adicionales para el contenido del dashboard */
+.dashboard-content {
+    padding: 1rem 0;
+}
+
+.dashboard-content h1 {
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.dashboard-content p {
+    margin-bottom: 2rem;
+    color: var(--text-medium);
+}
+
+/* Estilos para el botón de navegación móvil */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    margin-right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.menu-toggle:hover {
+    background-color: var(--light-medium);
+}
+
+.menu-toggle.active {
+    color: var(--primary-color);
+}
+
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar {
+        z-index: 100;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Estilo para la visualización en dispositivos móviles - orientación específica */
+@media (max-width: 576px) and (orientation: portrait) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    .chart-body {
+        height: 250px;
+    }
+}
+
+/* Estilo para cuando un usuario tiene una ventana de navegador muy pequeña */
+@media (max-height: 600px) {
+    .dashboard-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .dashboard-content p {
+        margin-bottom: 1rem;
+    }
+    
+    .dashboard-cards {
+        margin-bottom: 1rem;
+    }
+    
+    .chart-body {
+        height: 200px;
+    }
+} 
